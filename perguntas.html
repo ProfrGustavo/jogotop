@@ -48,12 +48,12 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
 
-    .pontuacao {
+    .cronometro-container {
       text-align: center;
       font-size: 1.2rem;
     }
 
-    .pontuacao span {
+    .cronometro-container span {
       font-weight: bold;
       font-size: 1.5rem;
       color: #28a745;
@@ -152,6 +152,13 @@
       border-radius: 10px;
       display: none;
     }
+    
+    .equacao-destaque .cronometro {
+      font-size: 1.5rem;
+      color: #e74c3c;
+      margin-top: 15px;
+      font-weight: bold;
+    }
 
     .equacao-destaque button {
       margin-top: 20px;
@@ -217,9 +224,6 @@
   <h1>Cartas de Bhaskara</h1>
   
   <div class="info-painel">
-    <div class="pontuacao">
-      Pontuação: <span id="pontos">10</span>
-    </div>
     <div class="botoes">
       <button onclick="voltarIndex()">Voltar à Roleta</button>
     </div>
@@ -230,6 +234,7 @@
   <div class="equacao-destaque" id="destaque">
     <div class="eq-header">Resolva a equação:</div>
     <div class="eq-formula" id="eq-text"></div>
+    <div class="cronometro" id="cronometro">00:00</div>
     <div class="eq-resposta" id="eq-resposta"></div>
     <div>
       <button onclick="mostrarResposta()">Ver Resposta</button>
@@ -298,51 +303,92 @@
     const destaque = document.getElementById("destaque");
     const eqText = document.getElementById("eq-text");
     const eqResposta = document.getElementById("eq-resposta");
-    const pontosElement = document.getElementById("pontos");
+    const cronometroElement = document.getElementById("cronometro");
     const somCarta = document.getElementById("som-carta");
     const somResposta = document.getElementById("som-resposta");
     
-    let pontos = 10;
     let equacaoAtual = null;
-
-    // Carrega a pontuação salva, se existir
+    let cronometroInterval = null;
+    let segundos = 0;
+    let cartasAbertas = [];
+    
+    // Verifica se há cartas já abertas no localStorage
     window.onload = function() {
-      const pontuacaoSalva = localStorage.getItem('pontuacao');
-      if (pontuacaoSalva !== null) {
-        pontos = parseInt(pontuacaoSalva);
-        pontosElement.innerText = pontos;
+      const cartasAbertasStorage = localStorage.getItem('cartasAbertas');
+      if (cartasAbertasStorage) {
+        cartasAbertas = JSON.parse(cartasAbertasStorage);
       }
+      criarCartas();
     };
 
-    // Cria as cartas
-    equacoes.forEach((item, index) => {
-      const carta = document.createElement("div");
-      carta.className = "carta";
-      carta.innerText = index + 1;
-      carta.onclick = () => {
-        // Toca o som da carta
-        if (somCarta) {
-          somCarta.currentTime = 0;
-          somCarta.play().catch(e => console.log("Erro ao tocar som:", e));
+    // Função para criar as cartas, excluindo as já abertas
+    function criarCartas() {
+      container.innerHTML = '';
+      
+      equacoes.forEach((item, index) => {
+        // Pula cartas que já foram abertas
+        if (cartasAbertas.includes(index)) {
+          return;
         }
         
-        equacaoAtual = item;
-        eqText.innerText = item.eq;
-        eqResposta.innerText = item.resp;
-        eqResposta.style.display = "none";
-        destaque.style.display = "block";
-        
-        // Efeito visual na carta selecionada
-        carta.style.transform = "scale(0.1)";
-        carta.style.opacity = "0";
-        
-        // Remove a carta após a animação
-        setTimeout(() => {
-          carta.remove();
-        }, 500);
-      };
-      container.appendChild(carta);
-    });
+        const carta = document.createElement("div");
+        carta.className = "carta";
+        carta.innerText = index + 1;
+        carta.onclick = () => {
+          // Toca o som da carta
+          if (somCarta) {
+            somCarta.currentTime = 0;
+            somCarta.play().catch(e => console.log("Erro ao tocar som:", e));
+          }
+          
+          equacaoAtual = item;
+          eqText.innerText = item.eq;
+          eqResposta.innerText = item.resp;
+          eqResposta.style.display = "none";
+          cronometroElement.innerText = "00:00";
+          destaque.style.display = "block";
+          
+          // Efeito visual na carta selecionada
+          carta.style.transform = "scale(0.1)";
+          carta.style.opacity = "0";
+          
+          // Adiciona a carta à lista de cartas abertas
+          cartasAbertas.push(index);
+          localStorage.setItem('cartasAbertas', JSON.stringify(cartasAbertas));
+          
+          // Inicia o cronômetro após 5 segundos
+          segundos = 0;
+          clearInterval(cronometroInterval);
+          
+          setTimeout(() => {
+            iniciarCronometro();
+          }, 5000);
+          
+          // Remove a carta após a animação
+          setTimeout(() => {
+            carta.remove();
+          }, 500);
+        };
+        container.appendChild(carta);
+      });
+    }
+
+    function iniciarCronometro() {
+      segundos = 0;
+      atualizarCronometro();
+      
+      cronometroInterval = setInterval(() => {
+        segundos++;
+        atualizarCronometro();
+      }, 1000);
+    }
+
+    function atualizarCronometro() {
+      const minutos = Math.floor(segundos / 60);
+      const segs = segundos % 60;
+      
+      cronometroElement.innerText = `${minutos.toString().padStart(2, '0')}:${segs.toString().padStart(2, '0')}`;
+    }
 
     function mostrarResposta() {
       eqResposta.style.display = "block";
@@ -356,6 +402,7 @@
 
     function fecharDestaque() {
       destaque.style.display = "none";
+      clearInterval(cronometroInterval);
     }
 
     document.addEventListener("keydown", function(event) {
@@ -365,8 +412,6 @@
     });
 
     function voltarIndex() {
-      // Salva a pontuação atual antes de voltar
-      localStorage.setItem('pontuacao', pontos);
       window.location.href = "index.html";
     }
   </script>

@@ -1,0 +1,89 @@
+REGRAS DO JOGO - ROLETA DE BHASKARA
+=================================
+
+VISÃO GERAL
+-----------
+Este jogo combina uma roleta de sorte com desafios matemáticos de equações de 2º grau (Bhaskara), 
+criado especialmente para alunos do 9º ano. O objetivo é acumular pontos resolvendo equações 
+enquanto enfrenta os desafios e oportunidades oferecidos pela roleta.
+
+COMO JOGAR
+----------
+1. Todos os jogadores/equipes começam com 10 pontos.
+2. Um jogador/equipe por vez gira a roleta.
+3. Dependendo do resultado da roleta, o jogador/equipe recebe uma recompensa ou penalidade.
+4. Após girar a roleta, o jogador/equipe deve escolher uma carta com uma equação de Bhaskara para resolver.
+5. O jogo continua até que todas as cartas tenham sido resolvidas ou até o tempo determinado pelo professor.
+6. Vence o jogador/equipe com mais pontos ao final do jogo.
+
+OPÇÕES DA ROLETA
+---------------
+
+1. PERDEU TUDO
+   - O jogador/equipe perde todos os seus pontos, ficando com zero.
+   - Mesmo assim, deve resolver uma equação de Bhaskara.
+
+2. PASSA A VEZ
+   - O jogador/equipe não ganha nem perde pontos.
+   - Passa a vez para o próximo jogador/equipe sem resolver uma equação.
+
+3. VALE 5 PONTOS
+   - O jogador/equipe ganha 5 pontos extras.
+   - Deve resolver uma equação de Bhaskara normalmente.
+
+4. VALE 10 PONTOS
+   - O jogador/equipe ganha 10 pontos extras.
+   - Deve resolver uma equação de Bhaskara normalmente.
+
+5. VALE 100 PONTOS
+   - O jogador/equipe ganha 100 pontos extras.
+   - Deve resolver uma equação de Bhaskara normalmente.
+
+6. TROQUE PONTOS
+   - O jogador/equipe deve escolher outro jogador/equipe para trocar pontuações.
+   - Por exemplo: se você tem 15 pontos e escolhe uma equipe com 30 pontos, você fica com 30 e a outra equipe fica com 15.
+
+7. TEMPO EXTRA
+   - O jogador/equipe ganha 30 segundos extras para resolver a equação.
+   - O cronômetro é ativado automaticamente.
+   - Quando o tempo acabar, deve apresentar a solução, mesmo que incompleta.
+
+8. GANHE 1 VIDA
+   - O jogador/equipe ganha 1 ponto extra.
+   - Deve resolver uma equação de Bhaskara normalmente.
+
+9. PERDEU METADE
+   - O jogador/equipe perde metade dos seus pontos (arredondado para baixo).
+   - Por exemplo: se tinha 15 pontos, ficará com 7.
+   - Deve resolver uma equação de Bhaskara normalmente.
+
+10. BÔNUS
+    - O jogador/equipe ganha 20 pontos extras.
+    - Deve resolver uma equação de Bhaskara normalmente.
+
+CARTAS DE BHASKARA
+-----------------
+- Cada carta contém uma equação de 2º grau para ser resolvida usando a fórmula de Bhaskara.
+- Ao selecionar uma carta, a equação é exibida na tela.
+- O jogador/equipe deve resolver a equação e pode verificar a resposta clicando no botão "Ver Resposta".
+- Após resolver, a carta é removida do jogo.
+- O professor pode determinar se a resposta está correta e aplicar penalidades ou bônus adicionais conforme seu critério.
+
+DICAS PARA PROFESSORES
+---------------------
+1. Defina um tempo limite para a resolução de cada equação (recomendado: 2-3 minutos).
+2. Você pode adicionar regras extras, como:
+   - Pontos extras para quem explicar o passo a passo da resolução.
+   - Permitir consulta ao material didático em casos específicos.
+   - Criar rodadas especiais onde todos os pontos são dobrados.
+3. Para turmas maiores, divida em equipes para promover a colaboração.
+4. Incentive os alunos a calcularem mentalmente quando possível.
+
+SUGESTÕES DE VARIAÇÕES
+---------------------
+1. Modo Competitivo: Cada equipe começa com o mesmo número de pontos e vence quem tiver mais ao final.
+2. Modo Cooperativo: Toda a turma trabalha para atingir uma meta de pontos coletivos.
+3. Modo Eliminação: Jogadores/equipes com menos de 5 pontos são eliminados.
+4. Modo Desafio: Apenas as equações mais difíceis são utilizadas.
+
+Lembre-se: O objetivo principal é aprender e se divertir com a matemática!

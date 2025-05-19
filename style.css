@@ -1,0 +1,165 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+  
+  /* Fundo com imagem local */
+  background-image: url('fundo.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  
+  /* Garante que o conteúdo fique legível */
+  color: #333;
+}
+
+/* Overlay semi-transparente para melhorar legibilidade */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: -1;
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #333;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.principal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.roleta-container {
+  position: relative;
+}
+
+.roleta {
+  position: relative;
+  transform-origin: center;
+  transition: transform 5s cubic-bezier(0.17, 0.67, 0.21, 0.99);
+}
+
+canvas {
+  border-radius: 50%;
+  border: 5px solid #333;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.info-painel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  min-width: 250px;
+}
+
+.pontuacao, .cronometro-container {
+  padding: 10px;
+  border-radius: 10px;
+  background: #f8f8f8;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+.pontuacao h2, .cronometro-container h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #444;
+}
+
+#pontos, #cronometro {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #28a745;
+}
+
+.botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.botao {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  background: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+}
+
+.botao:hover {
+  background: #1e7e34;
+  transform: scale(1.05);
+}
+
+.resultado-oculto {
+  display: none;
+}
+
+#resultado {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  font-size: 2rem;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+  border: 5px solid #333;
+  text-shadow: 2px 2px #aaa;
+  z-index: 9999;
+  animation: aparecer 0.5s ease-out;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .principal {
+    flex-direction: column;
+  }
+  
+  canvas {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .info-painel {
+    width: 90%;
+  }
+}

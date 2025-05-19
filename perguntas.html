@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cartas de Bhaskara</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('desafio.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: -1;
+    }
+
+    h1 {
+      margin-top: 30px;
+      color: white;
+      text-shadow: 2px 2px 5px black;
+      font-size: 2.5rem;
+    }
+
+    .info-painel {
+      display: flex;
+      justify-content: space-between;
+      width: 90%;
+      max-width: 800px;
+      margin: 20px auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .pontuacao {
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    .pontuacao span {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: #28a745;
+    }
+
+    .cartas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      max-width: 90vw;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    .carta {
+      width: 80px;
+      height: 110px;
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #1f618d;
+    }
+
+    .carta::before {
+      content: "?";
+      position: absolute;
+      font-size: 40px;
+      opacity: 0.2;
+    }
+
+    .carta:hover {
+      transform: translateY(-10px) rotate(5deg);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+      background: linear-gradient(135deg, #2980b9, #1a5276);
+    }
+
+    .equacao-destaque {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 40px;
+      font-size: 2rem;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      text-align: center;
+      min-width: 300px;
+      animation: aparecer 0.5s ease-out;
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    .equacao-destaque .eq-header {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .equacao-destaque .eq-formula {
+      font-size: 2.2rem;
+      font-weight: bold;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .equacao-destaque .eq-resposta {
+      font-size: 1.8rem;
+      color: #28a745;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px dashed #ccc;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .equacao-destaque button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background-color: #3498db;
+      color: white;
+      transition: all 0.3s ease;
+      margin: 10px;
+    }
+
+    .equacao-destaque button:hover {
+      background-color: #2980b9;
+      transform: scale(1.05);
+    }
+
+    .botoes {
+      margin: 20px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .botoes button {
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+      background-color: #28a745;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .botoes button:hover {
+      background-color: #1e7e34;
+      transform: scale(1.05);
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .carta {
+        width: 60px;
+        height: 90px;
+        font-size: 20px;
+      }
+      
+      .equacao-destaque {
+        width: 80%;
+        padding: 20px;
+      }
+      
+      .equacao-destaque .eq-formula {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Cartas de Bhaskara</h1>
+  
+  <div class="info-painel">
+    <div class="pontuacao">
+      Pontuação: <span id="pontos">10</span>
+    </div>
+    <div class="botoes">
+      <button onclick="voltarIndex()">Voltar à Roleta</button>
+    </div>
+  </div>
+  
+  <div class="cartas" id="cartas"></div>
+  
+  <div class="equacao-destaque" id="destaque">
+    <div class="eq-header">Resolva a equação:</div>
+    <div class="eq-formula" id="eq-text"></div>
+    <div class="eq-resposta" id="eq-resposta"></div>
+    <div>
+      <button onclick="mostrarResposta()">Ver Resposta</button>
+      <button onclick="fecharDestaque()">Fechar</button>
+    </div>
+  </div>
+
+  <audio id="som-carta" src="carta.mp3" preload="auto"></audio>
+  <audio id="som-resposta" src="resposta.mp3" preload="auto"></audio>
+
+  <script>
+   const equacoes = [
+  { eq: "3x² -33x +84 = 0", resp: "x₁ = 4, x₂ = 7" },
+  { eq: "1x² -15x +56 = 0", resp: "x₁ = 7, x₂ = 8" },
+  { eq: "1x² +4x -32 = 0", resp: "x₁ = -8, x₂ = 4" },
+  { eq: "2x² +4x -16 = 0", resp: "x₁ = -4, x₂ = 2" },
+  { eq: "1x² -5x +6 = 0", resp: "x₁ = 2, x₂ = 3"},
+  { eq: "1x² -11x +28 = 0", resp: "x₁ = 4, x₂ = 7" },
+  { eq: "2x² -10x +12 = 0", resp: "x₁ = 2, x₂ = 3" },
+  { eq: "1x² -2x -15 = 0", resp: "x₁ = 5, x₂ = -3" },
+  { eq: "1x² -9x +20 = 0", resp: "x₁ = 4, x₂ = 5" },
+  { eq: "3x² -24x +45 = 0", resp: "x₁ = 3, x₂ = 5" },
+  { eq: "2x² -14x +24 = 0", resp: "x₁ = 3, x₂ = 4" },
+  { eq: "1x² +6x +8 = 0", resp: "x₁ = -4, x₂ = -2" },
+  { eq: "1x² -10x +25 = 0", resp: "x₁ = 5, x₂ = 5" },
+  { eq: "2x² -6x +4 = 0", resp: "x₁ = 1, x₂ = 2" },
+  { eq: "3x² +6x +3 = 0", resp: "x₁ = -1, x₂ = -1" },
+  { eq: "1x² -6x +5 = 0", resp: "x₁ = 1, x₂ = 5" },
+  { eq: "2x² +10x +12 = 0", resp: "x₁ = -2, x₂ = -3" },
+  { eq: "1x² +7x +10 = 0", resp: "x₁ = -2, x₂ = -5" },
+  { eq: "3x² -21x +36 = 0", resp: "x₁ = 3, x₂ = 4" },
+  { eq: "1x² -13x +42 = 0", resp: "x₁ = 6, x₂ = 7" },
+  { eq: "2x² -8x +6 = 0", resp: "x₁ = 1, x₂ = 3" },
+  { eq: "1x² -3x -28 = 0", resp: "x₁ = 7, x₂ = -4" },
+  { eq: "3x² -18x +27 = 0", resp: "x₁ = 3, x₂ = 3" },
+  { eq: "1x² +2x -35 = 0", resp: "x₁ = -7, x₂ = 5" },
+  { eq: "2x² +2x -24 = 0", resp: "x₁ = -4, x₂ = 3" },
+  { eq: "1x² -5x -24 = 0", resp: "x₁ = 8, x₂ = -3" },
+  { eq: "3x² +12x +9 = 0", resp: "x₁ = -1, x₂ = -3" },
+  { eq: "2x² -18x +40 = 0", resp: "x₁ = 4, x₂ = 5" },
+  { eq: "1x² -3x -10 = 0", resp: "x₁ = 5, x₂ = -2" },
+  { eq: "1x² -12x +35 = 0", resp: "x₁ = 5, x₂ = 7" },
+  { eq: "3x² -15x +18 = 0", resp: "x₁ = 2, x₂ = 3" },
+  { eq: "2x² +2x -12 = 0", resp: "x₁ = -3, x₂ = 2" },
+  { eq: "1x² -7x +10 = 0", resp: "x₁ = 2, x₂ = 5" },
+  { eq: "1x² -8x +16 = 0", resp: "x₁ = 4, x₂ = 4" },
+  { eq: "2x² -2x -12 = 0", resp: "x₁ = -2, x₂ = 3" },
+  { eq: "1x² -14x +45 = 0", resp: "x₁ = 5, x₂ = 9" },
+  { eq: "1x² -5x +6 = 0", resp: "x₁ = 2, x₂ = 3" },
+  { eq: "2x² +12x +16 = 0", resp: "x₁ = -2, x₂ = -4" },
+  { eq: "1x² -4x -5 = 0", resp: "x₁ = 5, x₂ = -1" },
+  { eq: "1x² +10x +25 = 0", resp: "x₁ = -5, x₂ = -5" },
+  { eq: "1x² -9x +20 = 0", resp: "x₁ = 4, x₂ = 5" },
+  { eq: "2x² +8x +6 = 0", resp: "x₁ = -1, x₂ = -3" },
+  { eq: "1x² -3x -18 = 0", resp: "x₁ = 6, x₂ = -3" },
+  { eq: "1x² -2x -15 = 0", resp: "x₁ = 5, x₂ = -3" },
+  { eq: "1x² +6x +5 = 0", resp: "x₁ = -1, x₂ = -5" },
+  { eq: "3x² -12x +9 = 0", resp: "x₁ = 1, x₂ = 3" },
+  { eq: "1x² -4x -60 = 0", resp: "x₁ = 10, x₂ = -6" },
+  { eq: "2x² -20x +48 = 0", resp: "x₁ = 4, x₂ = 6" },
+  { eq: "1x² -16x +63 = 0", resp: "x₁ = 7, x₂ = 9" },
+  { eq: "3x² +12x +9 = 0", resp: "x₁ = -1, x₂ = -3" }
+];
+
+    const container = document.getElementById("cartas");
+    const destaque = document.getElementById("destaque");
+    const eqText = document.getElementById("eq-text");
+    const eqResposta = document.getElementById("eq-resposta");
+    const pontosElement = document.getElementById("pontos");
+    const somCarta = document.getElementById("som-carta");
+    const somResposta = document.getElementById("som-resposta");
+    
+    let pontos = 10;
+    let equacaoAtual = null;
+
+    // Carrega a pontuação salva, se existir
+    window.onload = function() {
+      const pontuacaoSalva = localStorage.getItem('pontuacao');
+      if (pontuacaoSalva !== null) {
+        pontos = parseInt(pontuacaoSalva);
+        pontosElement.innerText = pontos;
+      }
+    };
+
+    // Cria as cartas
+    equacoes.forEach((item, index) => {
+      const carta = document.createElement("div");
+      carta.className = "carta";
+      carta.innerText = index + 1;
+      carta.onclick = () => {
+        // Toca o som da carta
+        if (somCarta) {
+          somCarta.currentTime = 0;
+          somCarta.play().catch(e => console.log("Erro ao tocar som:", e));
+        }
+        
+        equacaoAtual = item;
+        eqText.innerText = item.eq;
+        eqResposta.innerText = item.resp;
+        eqResposta.style.display = "none";
+        destaque.style.display = "block";
+        
+        // Efeito visual na carta selecionada
+        carta.style.transform = "scale(0.1)";
+        carta.style.opacity = "0";
+        
+        // Remove a carta após a animação
+        setTimeout(() => {
+          carta.remove();
+        }, 500);
+      };
+      container.appendChild(carta);
+    });
+
+    function mostrarResposta() {
+      eqResposta.style.display = "block";
+      
+      // Toca o som da resposta
+      if (somResposta) {
+        somResposta.currentTime = 0;
+        somResposta.play().catch(e => console.log("Erro ao tocar som:", e));
+      }
+    }
+
+    function fecharDestaque() {
+      destaque.style.display = "none";
+    }
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        fecharDestaque();
+      }
+    });
+
+    function voltarIndex() {
+      // Salva a pontuação atual antes de voltar
+      localStorage.setItem('pontuacao', pontos);
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

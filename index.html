@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roleta da Sorte - Bhaskara</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🎯 Roleta da Sorte - Bhaskara</h1>
+
+  <div class="principal">
+    <div class="roleta-container">
+      <div class="roleta" id="roleta">
+        <canvas id="canvas" width="500" height="500"></canvas>
+      </div>
+    </div>
+
+    <div class="info-painel">
+      <div class="pontuacao">
+        <h2>Pontuação</h2>
+        <div id="pontos">10</div>
+      </div>
+      
+      <div class="cronometro-container">
+        <h2>Cronômetro</h2>
+        <div id="cronometro">00:00</div>
+      </div>
+      
+      <div class="botoes">
+        <button onclick="girar()" class="botao">🎡 Girar</button>
+        <a href="perguntas.html"><button class="botao">📘 Escolher Questão</button></a>
+      </div>
+    </div>
+  </div>
+
+  <div id="resultado" class="resultado-oculto"></div>
+  
+  <audio id="som-roleta" src="roleta.mp3" preload="auto"></audio>
+  <audio id="som-vitoria" src="vitoria.mp3" preload="auto"></audio>
+  <audio id="som-derrota" src="derrota.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -10,15 +10,15 @@ const somDerrota = document.getElementById("som-derrota");
 // Configuração da roleta
 const premios = [
   "Perdeu Tudo", 
-  "Passa a Vez", 
-  "Vale 5 Pontos", 
+  "Vale 15 Pontos", 
+  "Vale 10 Pontos", 
   "Vale 10 Pontos",
   "Vale 100 Pontos",
-  "Troque Pontos",
-  "Congele uma Equipe",
-  "Duas Chances",
-  "Perdeu Metade",
-  "Tempo Extra + 10 Pontos"
+  "Troque Pontos (se quiser)",
+  "20 Pontos",
+  "Em duplas (10 pontos)",
+  "O adversário escolhe (15 pontos)",
+  "Dobrar os pontos"
 ];
 
 const colors = [

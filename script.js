@@ -23,15 +23,15 @@ const premios = [
 
 const colors = [
   "#FF5733", // Vermelho - Perdeu Tudo
-  "#FFC300", // Amarelo - Passa a Vez
-  "#28B463", // Verde - Vale 5 Pontos
+  "#FFC300", // Amarelo - Vale 15 Pontos
+  "#28B463", // Verde - Vale 10 Pontos
   "#3498DB", // Azul - Vale 10 Pontos
   "#9B59B6", // Roxo - Vale 100 Pontos
-  "#F39C12", // Laranja - Troque Pontos
-  "#1ABC9C", // Turquesa - Congele uma Equipe
-  "#2ECC71", // Verde Claro - Duas Chances
-  "#E74C3C", // Vermelho Escuro - Perdeu Metade
-  "#F1C40F"  // Amarelo Dourado - Tempo Extra + 10 Pontos
+  "#F39C12", // Laranja - Troque Pontos (se quiser)
+  "#1ABC9C", // Turquesa - 20 Pontos
+  "#2ECC71", // Verde Claro - Em duplas (10 pontos)
+  "#E74C3C", // Vermelho Escuro - O adversário escolhe (15 pontos)
+  "#F1C40F"  // Amarelo Dourado - Dobrar os pontos
 ];
 
 // Variáveis de estado
